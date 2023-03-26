@@ -49,6 +49,7 @@
             text-align: center;
             font-size: 2.5em;
             filter: blur(0.5px);
+            text-transform: uppercase;
         }
 
         @keyframes rotate {
@@ -68,14 +69,53 @@
                 transform: perspective(500px) rotateY(0deg);
             }
         }
+
+        .animated-text>span {
+            display: inline-block;
+            animation: appear 3s ease-out;
+            animation-fill-mode: forwards;
+            opacity: 0;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes appear {
+            0%{
+                opacity: 0;
+            }
+            25% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100%{
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div>
+    <div style="text-align: center;">
         <div class="logo"> </div>
-        <p class="description">LOADING ...</p>
+        <br>
+        <div id="text">loading ...</div>
     </div>
+
+    <script>
+        const text = document.getElementById("text");
+        const characters = text.innerText.split("");
+        const animatedText = document.createElement("div");
+        animatedText.classList.add("animated-text", "description");
+
+        characters.forEach((char, index) => {
+            const span = document.createElement("span");
+            span.innerText = char;
+            span.style.animationDelay = `${index * 0.1}s`;
+            animatedText.appendChild(span);
+        });
+        text.parentNode.replaceChild(animatedText, text);
+    </script>
 </body>
 
 </html>
