@@ -104,7 +104,8 @@
 
     <script>
         const text = document.getElementById("text");
-        const characters = text.innerText.split("");
+        const originalText = text.innerText;
+        const characters = originalText.replace(/\s/g, '⠀').split("");
         const animatedText = document.createElement("div");
         animatedText.classList.add("animated-text", "description");
 
